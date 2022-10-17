@@ -24,7 +24,7 @@ Repositório com os mapas iniciais de pré-seleção de amostras das Bacias sedi
 ```
   git clone https://github.com/PR-4/mapas.git
  ```
- > <b>Instale as dependências do projeto pelo requirements.sh:</b>
+ > <b>Instale as dependências do programa pelo requirements.sh:</b>
 ```
   chmod +x requirements.sh
  ```
