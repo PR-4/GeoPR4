@@ -28,7 +28,7 @@ Repositório com os mapas iniciais de pré-seleção de amostras das Bacias sedi
 ```
   chmod +x requirements.sh
  ```
- e, posteriormente digite
+ e 
  ```
   ./requirements.sh
  ```
