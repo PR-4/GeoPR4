@@ -1,7 +1,7 @@
 # Mapas de seleção de amostras
 
 <p align="center">
-  <img src="\images\PR4.jpg" >
+  <img src="/images/PR4.jpg" >
 </p>
 
 Repositório com os mapas iniciais de pré-seleção de amostras das Bacias sedimentares.
