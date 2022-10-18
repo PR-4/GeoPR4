@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import folium
 from folium.raster_layers import WmsTileLayer
 from folium.raster_layers import TileLayer
+import json
+import requests
 import webbrowser
 import pydeck as pdk
 
@@ -148,7 +150,7 @@ blocos = folium.GeoJson(data=blocos_dbf["geometry"],
         'color': 'black',     #border color for the color fills
         'weight': 1,          #how thick the border has to be
         'dashArray': '5, 3'  #dashed lines length,space between them
-    }).add_to(br)
+    },name='Campos em aberto').add_to(br)
 
 #blocos.save('blocos.html')#salva mapa
 #webbrowser.open_new_tab('blocos.html')# vê o mapa
@@ -162,14 +164,13 @@ campos_dbf = geopandas.read_file('../inputs/campos/CAMPOS_PRODUCAO.dbf')
 print(campos_dbf.head())
 
 
-
 campos = folium.GeoJson(data=campos_dbf["geometry"],
         style_function=lambda feature: {
         'fillColor': 'red',
         'color': 'black',     #border color for the color fills
         'weight': 1,          #how thick the border has to be
         'dashArray': '5, 3'  #dashed lines length,space between them
-    }).add_to(br)
+    },name='Campos em produção').add_to(br)
 
 
 
@@ -207,13 +208,15 @@ print(nsismicos_dbf.head())
 
 
 
-nsismicos = folium.GeoJson(data=campos_dbf["geometry"],
+
+
+nsismicos = folium.GeoJson(data=nsismicos_dbf["geometry"],
         style_function=lambda feature: {
         'fillColor': 'yellow',
         'color': 'black',     #border color for the color fills
         'weight': 1,          #how thick the border has to be
         'dashArray': '5, 3'  #dashed lines length,space between them
-    }).add_to(br)
+    },name='Aquisições não símicas').add_to(br)
 
 
 
