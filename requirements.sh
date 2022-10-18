@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#requirements aways the last stable versions
+#requirements always in their last stable versions
+
+pip install os-sys
 
 pip install -U matplotlib
 
@@ -9,5 +11,6 @@ pip install geopandas
 pip install folium
 
 pip install pydeck -q
+
 
 
