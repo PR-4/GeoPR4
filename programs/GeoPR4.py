@@ -61,16 +61,16 @@ ns.nsismico().add_to(br)
 # Dados de poços da ANP
 
 # Dados de poços do requititados do PR4
-recebidas = pd.read_csv('../inputs/recebidos.csv',index_col = 0, sep=',', header=0, decimal=',')
-recebidas = recebidas.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
-print(recebidas)
-recebidas = gpd.GeoDataFrame(recebidas,geometry = gpd.points_from_xy(recebidas.LATITUDE_BASE_DD, recebidas.LONGITUDE_BASE_DD))
-recebidas.set_crs(epsg="4326", inplace = True, allow_override= True)
-recebidas.info()
+#recebidas = pd.read_csv('../inputs/recebidos.csv',index_col = 0, sep=',', header=0, decimal=',')
+#recebidas = recebidas.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
+#print(recebidas)
+#recebidas = gpd.GeoDataFrame(recebidas,geometry = gpd.points_from_xy(recebidas.LATITUDE_BASE_DD, recebidas.LONGITUDE_BASE_DD))
+#recebidas.set_crs(epsg="4326", inplace = True, allow_override= True)
+#recebidas.info()
 #Adding points to the map
-for i, row in recebidas.iterrows():
-    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup="PR4 - recebidos",
-    icon=folium.Icon(color="green", icon="", prefix='fa')).add_to(br)
+#for i, row in recebidas.iterrows():
+#    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup="PR4 - recebidos",
+#    icon=folium.Icon(color="green", icon="", prefix='fa')).add_to(br)
 
 
 
@@ -89,6 +89,20 @@ presal.info()
 for i, row in presal.iterrows():
     folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup='PR4 pré-sal geradora',
     icon=folium.Icon(color="red", icon="", prefix='fa')).add_to(br)
+
+
+# Dados de poços de possíveis geradoras do pré-sal que estão na UFF
+presaluff = pd.read_csv('../inputs/presal_uff.csv',index_col = 0, sep=',', header=0, decimal=',')
+presaluff = presaluff.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
+print(presaluff)
+presaluff = gpd.GeoDataFrame(presaluff,geometry = gpd.points_from_xy(presaluff.LATITUDE_BASE_DD, presaluff.LONGITUDE_BASE_DD))
+presaluff.set_crs(epsg="4326", inplace = True, allow_override= True)
+presaluff.info()
+#Adding points to the map
+for i, row in presaluff.iterrows():
+    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup='PR4 pré-sal UFF',
+    icon=folium.Icon(color="blue", icon="", prefix='fa')).add_to(br)
+
 
 
 
