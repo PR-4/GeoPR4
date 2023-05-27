@@ -56,7 +56,7 @@ bc.bacias().add_to(br)
 
 
 # Dados não-sísmicos
-ns.nsismico().add_to(br)
+#ns.nsismico().add_to(br)
 
 # Dados de poços da ANP
 
@@ -100,10 +100,14 @@ presaluff.set_crs(epsg="4326", inplace = True, allow_override= True)
 presaluff.info()
 #Adding points to the map
 for i, row in presaluff.iterrows():
-    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup='PR4 pré-sal UFF',
+    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup='PR4 pré-sal',
     icon=folium.Icon(color="blue", icon="", prefix='fa')).add_to(br)
 
 
+
+#Adiciona o poço que está na UFF e temos dados geofísicos
+folium.Marker([-23.43707556,-40.72695083], popup='1-BRSA-1007-RJS. Geradora pré-sal presente na UFF com dados geofísicos recebidos',
+              icon=folium.Icon(color='green')).add_to(br)
 
 
 # Dados de geoquímica
