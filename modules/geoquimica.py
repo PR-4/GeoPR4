@@ -154,4 +154,19 @@ class publico:
          return seal04_pol_geoq
 
 
+    def acre():
+         acre = geopandas.read_file(entrada+"Publicos/0005_GEOQS_ANP_ACRE/1- Vértices gerados a partir do polígono/POLIGONO_GEOQ_ACRE_SIRGAS.dbf")
+            
+         # define um CRS e ou mantém um já existente
+         seal04_pol = seal04_pol.set_crs(epsg="4326", inplace=True, allow_override=True)
+
+         seal04_pol_geoq = folium.GeoJson(data=seal04_pol["geometry"],
+                                     style_function=lambda feature: {
+            'fillColor': 'green',
+            'color': 'black',  # border color for the color fills
+            'weight': 1,  # how thick the border has to be
+            'dashArray': '5, 3'  # dashed lines length,space between them
+        }, name='Aquisições geoquímicas')
+        
+         return acre
 # class confidencial:
