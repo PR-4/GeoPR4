@@ -58,6 +58,13 @@ bc.bacias().add_to(br)
 # Dados não-sísmicos
 #ns.nsismico().add_to(br)
 
+
+# Santos Outer-high and square selection
+#bl.outerhigh().add_to(br)
+#bl.square_selection().add_to(br)
+
+
+
 # Dados de poços da ANP
 
 # Dados de poços do requititados do PR4
@@ -108,6 +115,44 @@ for i, row in presaluff.iterrows():
 #Adiciona o poço que está na UFF e temos dados geofísicos
 folium.Marker([-23.43707556,-40.72695083], popup='1-BRSA-1007-RJS. Geradora pré-sal presente na UFF com dados geofísicos recebidos',
               icon=folium.Icon(color='green')).add_to(br)
+
+
+
+
+
+# Testes de poços do Bernardo
+
+
+bacias_dbf = gpd.read_file('../inputs/pocos/PR4/Square_Inside_SEH/PR4_Wells_SEH_Square.dbf')
+bacias_dbf = bacias_dbf.set_crs(epsg = "4326", inplace = True, allow_override= True) #define um CRS e ou mantém um já existente
+#bacias_dbf = bacias_dbf.to_crs(epsg = "25833", inplace = True)#transforma para outro CRS
+print(bacias_dbf.head())
+      
+bacias = folium.GeoJson(data=bacias_dbf["geometry"],
+                        style_function=lambda feature:
+                        {
+                            'fillColor': 'blue',
+                            'color': 'black',     #border color for the color fills
+                            'weight': 1,          #how thick the border has to be
+                            'dashArray': '5, 3'  #dashed lines length,space between them
+                         },name='Poços Square').add_to(br)
+
+
+
+
+external_dbf = gpd.read_file('../inputs/pocos/PR4/Santos_External_High/PR4_Wells_SEH.dbf')
+external_dbf = external_dbf.set_crs(epsg = "4326", inplace = True, allow_override= True) #define um CRS e ou mantém um já existente
+#bacias_dbf = bacias_dbf.to_crs(epsg = "25833", inplace = True)#transforma para outro CRS
+print(external_dbf.head())
+      
+external = folium.GeoJson(data=external_dbf["geometry"],
+                          style_function=lambda feature:
+                          {
+                            'fillColor': 'gray',
+                            'color': 'black',     #border color for the color fills
+                            'weight': 1,          #how thick the border has to be
+                            'dashArray': '5, 3'  #dashed lines length,space between them
+                         },name='Poços Santos Outer High').add_to(br)
 
 
 # Dados de geoquímica
