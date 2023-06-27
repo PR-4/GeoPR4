@@ -68,16 +68,16 @@ bc.bacias().add_to(br)
 # Dados de poços da ANP
 
 # Dados de poços do requititados do PR4
-#recebidas = pd.read_csv('../inputs/recebidos.csv',index_col = 0, sep=',', header=0, decimal=',')
-#recebidas = recebidas.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
-#print(recebidas)
-#recebidas = gpd.GeoDataFrame(recebidas,geometry = gpd.points_from_xy(recebidas.LATITUDE_BASE_DD, recebidas.LONGITUDE_BASE_DD))
-#recebidas.set_crs(epsg="4326", inplace = True, allow_override= True)
-#recebidas.info()
+recebidas = pd.read_csv('../inputs/recebidos.csv',index_col = 0, sep=',', header=0, decimal=',')
+recebidas = recebidas.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
+print(recebidas)
+recebidas = gpd.GeoDataFrame(recebidas,geometry = gpd.points_from_xy(recebidas.LATITUDE_BASE_DD, recebidas.LONGITUDE_BASE_DD))
+recebidas.set_crs(epsg="4326", inplace = True, allow_override= True)
+recebidas.info()
 #Adding points to the map
-#for i, row in recebidas.iterrows():
-#    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup="PR4 - recebidos",
-#    icon=folium.Icon(color="green", icon="", prefix='fa')).add_to(br)
+for i, row in recebidas.iterrows():
+    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup="PR4 - recebidos",
+    icon=folium.Icon(color="green", icon="", prefix='fa')).add_to(br)
 
 
 
@@ -121,38 +121,20 @@ folium.Marker([-23.43707556,-40.72695083], popup='1-BRSA-1007-RJS. Geradora pré
 
 
 # Testes de poços do Bernardo
+Ehigh =pd.read_csv('../inputs/pocos/Santos_External_High/wells_santos_presal_outerHigh.csv',index_col = 0, sep=',', header=0, decimal=',', usecols=['POCO','LAT_DD','LONG_DD','AGP','SISMICA'])
+
+Ehigh_shp = gpd.GeoDataFrame(Ehigh,geometry = gpd.points_from_xy(Ehigh.LAT_DD, Ehigh.LONG_DD))
+Ehigh_shp.set_crs(epsg="4326", inplace = True, allow_override= True)
+Ehigh_shp.info()
+
+#Adding points to the map
+for i, row in Ehigh.iterrows():
+    folium.Marker([row['LAT_DD'], row['LONG_DD']],popup='External High Wells',
+    icon=folium.Icon(color="orange", icon="", prefix='fa')).add_to(br)
 
 
-bacias_dbf = gpd.read_file('../inputs/pocos/PR4/Square_Inside_SEH/PR4_Wells_SEH_Square.dbf')
-bacias_dbf = bacias_dbf.set_crs(epsg = "4326", inplace = True, allow_override= True) #define um CRS e ou mantém um já existente
-#bacias_dbf = bacias_dbf.to_crs(epsg = "25833", inplace = True)#transforma para outro CRS
-print(bacias_dbf.head())
       
-bacias = folium.GeoJson(data=bacias_dbf["geometry"],
-                        style_function=lambda feature:
-                        {
-                            'fillColor': 'blue',
-                            'color': 'black',     #border color for the color fills
-                            'weight': 1,          #how thick the border has to be
-                            'dashArray': '5, 3'  #dashed lines length,space between them
-                         },name='Poços Square').add_to(br)
 
-
-
-
-external_dbf = gpd.read_file('../inputs/pocos/PR4/Santos_External_High/PR4_Wells_SEH.dbf')
-external_dbf = external_dbf.set_crs(epsg = "4326", inplace = True, allow_override= True) #define um CRS e ou mantém um já existente
-#bacias_dbf = bacias_dbf.to_crs(epsg = "25833", inplace = True)#transforma para outro CRS
-print(external_dbf.head())
-      
-external = folium.GeoJson(data=external_dbf["geometry"],
-                          style_function=lambda feature:
-                          {
-                            'fillColor': 'gray',
-                            'color': 'black',     #border color for the color fills
-                            'weight': 1,          #how thick the border has to be
-                            'dashArray': '5, 3'  #dashed lines length,space between them
-                         },name='Poços Santos Outer High').add_to(br)
 
 
 # Dados de geoquímica
