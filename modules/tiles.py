@@ -41,6 +41,16 @@ class esri:
                               attr='ESRI Topo Map',
                               )
          return topography
+     
+     def oceanBase():
+         OceanBaseMap = ('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}')
+        
+         topography = WmsTileLayer(url=OceanBaseMap,
+                              layers=None,
+                              name='Ocean Basemap',
+                              attr='Tiles (C) Esri -- Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
+                              )
+         return topography
 
 
 # Adiciona imagens de bandas de satélites
