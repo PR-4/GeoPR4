@@ -14,21 +14,18 @@ Repositório com os mapas iniciais de pré-seleção de amostras das Bacias sedi
 
  > <b>Crie um ambient virtual (virtual env) com Python == 3.8:</b>
 ```
-  conda create -n GeoPR4 python=3.8
+  conda create --name GeoPR4 python
  ```
  > <b>Ative o Ambiente virtual (virtual env):</b>
 ```
   conda activate GeoPR4
 ``` 
- > <b>No terminal do anaconda, clone o repositório:</b>
+ > <b>No terminal do anaconda, instale as dependências:</b>
 ```
-  git clone https://github.com/PR-4/GeoPR4.git
- ```
- > <b>Instale as dependências do programa pelo requirements.sh:</b>
-```
-  chmod +x requirements.sh
- ```
- e 
- ```
-  ./requirements.sh
+  pip install folium
+  pip install geopandas
+  pip install pydeck
+  pip install openpyxl
+  pip install notebook
+  pip install matplotlib (opcional)
  ```
