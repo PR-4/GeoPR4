@@ -1,4 +1,4 @@
-# importando as bibliotecas necessárias
+# Importando as bibliotecas necessárias
 import pandas as pd
 import geopandas as gpd
 import folium
@@ -10,7 +10,7 @@ import requests
 import webbrowser
 import pydeck as pdk
 
-# modulos internos
+# Módulos internos
 import sys
 sys.path.insert(0,'../modules')
 import geoquimica
@@ -26,118 +26,57 @@ from bacias import publico as bc
 import nsismicos
 from nsismicos import publico as ns
 import debug as d
+import pocos
+from pocos import PR4 as pr
+import bathmetry
+from bathmetry import bath as ba 
 
 ####################################################
-#----------PROGRAMA PRINCIPAL---------------------#
-##################################################
+#--------------PROGRAMA PRINCIPAL------------------#
+####################################################
 
 
-#Define o mapa geral
-br = folium.Map(location=[-22.0579041,-36.964808],zoom_start=5.96,tiles=None,control_scale=True)#define o mapa inicial
+# Define o mapa geral
+br = folium.Map(location=[-22.0579041,-36.964808],
+                zoom_start=5.96,
+                tiles=None,
+                control_scale=True)
 
-#Define algumas camadas de mapa padao
+# Define algumas camadas de mapa padao
 folium.TileLayer('cartodbpositron',name='claro').add_to(br)
 folium.TileLayer('cartodbdark_matter',name='escuro').add_to(br)
 
-#Adiciona camadas de satélites especiais
-ly.satelite().add_to(br)
-ly.topo().add_to(br)
+# Adiciona camadas de satélites especiais
+ly.satelite().add_to(br) # ESRI Imagery
+ly.topo().add_to(br) # ESRI Topo
+ly.oceanBase().add_to(br) # Ocean Basemap
 
-#blocos exploratórios
+# Blocos Exploratórios
 bl.blocos().add_to(br)
 
-#Campos 
+# Campos 
 cp.campos().add_to(br)
 
-
-#Bacias
+# Bacias
 bc.bacias().add_to(br)
 
-
+# Batimetria 
+ba.bathmetry().add_to(br)
 
 # Dados não-sísmicos
 #ns.nsismico().add_to(br)
-
 
 # Santos Outer-high and square selection
 #bl.outerhigh().add_to(br)
 #bl.square_selection().add_to(br)
 
+# Dados de poços da PR4
+pr.pocosRecebidos().add_to(br)
+pr.pocosSelGePreSal().add_to(br)
+pr.pocosPriPedPetANP().add_to(br)
+pr.pocosUFF().add_to(br)
 
-
-# Dados de poços da ANP
-
-# Dados de poços do requititados do PR4
-recebidas = pd.read_csv('../inputs/recebidos.csv',index_col = 0, sep=',', header=0, decimal=',')
-recebidas = recebidas.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
-print(recebidas)
-recebidas = gpd.GeoDataFrame(recebidas,geometry = gpd.points_from_xy(recebidas.LATITUDE_BASE_DD, recebidas.LONGITUDE_BASE_DD))
-recebidas.set_crs(epsg="4326", inplace = True, allow_override= True)
-recebidas.info()
-#Adding points to the map
-for i, row in recebidas.iterrows():
-    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup="PR4 - recebidos",
-    icon=folium.Icon(color="green", icon="", prefix='fa')).add_to(br)
-
-
-
-
-
-
-
-# Dados de poços de possíveis geradoras do pré-sal
-presal = pd.read_csv('../inputs/presal.csv',index_col = 0, sep=',', header=0, decimal=',')
-presal = presal.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
-print(presal)
-presal = gpd.GeoDataFrame(presal,geometry = gpd.points_from_xy(presal.LATITUDE_BASE_DD, presal.LONGITUDE_BASE_DD))
-presal.set_crs(epsg="4326", inplace = True, allow_override= True)
-presal.info()
-#Adding points to the map
-for i, row in presal.iterrows():
-    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup='PR4 pré-sal geradora',
-    icon=folium.Icon(color="red", icon="", prefix='fa')).add_to(br)
-
-
-# Dados de poços de possíveis geradoras do pré-sal que estão na UFF
-presaluff = pd.read_csv('../inputs/presal_uff.csv',index_col = 0, sep=',', header=0, decimal=',')
-presaluff = presaluff.drop(columns=['LATITUDE_BASE_4C','LONGITUDE_BASE_4C','DATUM_HORIZONTAL','PROFUNDIDADE_SONDADOR_M','AGP'])
-print(presaluff)
-presaluff = gpd.GeoDataFrame(presaluff,geometry = gpd.points_from_xy(presaluff.LATITUDE_BASE_DD, presaluff.LONGITUDE_BASE_DD))
-presaluff.set_crs(epsg="4326", inplace = True, allow_override= True)
-presaluff.info()
-#Adding points to the map
-for i, row in presaluff.iterrows():
-    folium.Marker([row['LATITUDE_BASE_DD'], row['LONGITUDE_BASE_DD']],popup='PR4 pré-sal',
-    icon=folium.Icon(color="blue", icon="", prefix='fa')).add_to(br)
-
-
-
-#Adiciona o poço que está na UFF e temos dados geofísicos
-folium.Marker([-23.43707556,-40.72695083], popup='1-BRSA-1007-RJS. Geradora pré-sal presente na UFF com dados geofísicos recebidos',
-              icon=folium.Icon(color='green')).add_to(br)
-
-
-
-
-
-# Testes de poços do Bernardo
-Ehigh =pd.read_csv('../inputs/pocos/Santos_External_High/wells_santos_presal_outerHigh.csv',index_col = 0, sep=',', header=0, decimal=',', usecols=['POCO','LAT_DD','LONG_DD','AGP','SISMICA'])
-
-Ehigh_shp = gpd.GeoDataFrame(Ehigh,geometry = gpd.points_from_xy(Ehigh.LAT_DD, Ehigh.LONG_DD))
-Ehigh_shp.set_crs(epsg="4326", inplace = True, allow_override= True)
-Ehigh_shp.info()
-
-#Adding points to the map
-for i, row in Ehigh.iterrows():
-    folium.Marker([row['LAT_DD'], row['LONG_DD']],popup='External High Wells',
-    icon=folium.Icon(color="orange", icon="", prefix='fa')).add_to(br)
-
-
-      
-
-
-
-# Dados de geoquímica
+# Dados de Geoquímica
 #pb.seal01().add_to(br)
 pb.seal01_pol().add_to(br)
 #pb.seal02().add_to(br)
@@ -150,15 +89,14 @@ final  = pb.seal04_pol().add_to(br) # a última camada sempre e a camada a ser s
 #d.debug()
 # Salva e visualiza o GeoPR4
 
-# add full screen button to map
-plugins.Fullscreen(position='topright').add_to(br)
-draw = plugins.Draw(export=True)# add draw tools to map
+# Adicionando plugins no mapa
+plugins.Fullscreen(position='topright').add_to(br) # Tela cheia
+draw = plugins.Draw(export=True) # Adiciona ferramentas de desenho
 draw.add_to(br)
 
-br.add_child(folium.LatLngPopup())
-br.add_child(folium.LayerControl())
-minimap = plugins.MiniMap(toggle_display=True)
+br.add_child(folium.LatLngPopup()) # Adiciona Lat e Lon clicando
+br.add_child(folium.LayerControl()) # Adiciona controle das camadas
+minimap = plugins.MiniMap(toggle_display=True) # Adiciona minimap
 br.add_child(minimap)
-final.save('GeoPR4.html')#salva mapa
-webbrowser.open_new_tab('GeoPR4.html')# vê o mapa
-
+final.save('GeoPR4.html') # Salva o mapa
+webbrowser.open_new_tab('GeoPR4.html') # Abre o mapa no browser
