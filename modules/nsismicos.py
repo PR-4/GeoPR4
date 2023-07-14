@@ -13,15 +13,26 @@ import json
 
 
 class publico:
-     def nsismico():
-        nsismicos_dbf = geopandas.read_file('../inputs/nsismicos/shapefiles_nao_sismicos_13122018.dbf')
-        print(nsismicos_dbf.head())
-        nsismico = folium.GeoJson(data=nsismicos_dbf["geometry"],
+     def espectroscopia():
+        258SPEC_dbf = geopandas.read_file('../inputs/nsismicos/0258_2D_SPEC_BM_ES_grid/0258_2D_SPEC_BM_ES_grid.dbf')
+        print(258SPEC_dbf.head())
+        258SPEC = folium.GeoJson(data=258SPEC_dbf["geometry"],
                                    style_function=lambda feature: {'fillColor': 'yellow',
                                                                    'color': 'black',    
                                                                    'weight': 1,         
                                                                    'dashArray': '5, 3'  
-                                                                   },name='Aquisições não símicas')
+                                                                   },name='Espectroscopia Aérea')
 
-        return nsismico
+         return 258SPEC
 
+     def gravimetria():
+         264GRAV_dbf = geopandas.read_file('../inputs/nsismicos/0264_GRAV_BMES1_grid.dbf')
+         print(264GRAV_dbf.head())
+         264GRAV = folium.GeoJson(data=264GRAV_dbf["geometry"],
+                                    style_function=lambda feature: {'fillColor': 'yellow',
+                                                                    'color': 'black',    
+                                                                    'weight': 1,         
+                                                                    'dashArray': '5, 3'  
+                                                                    },name='Gravimetria')
+
+         return 264GRAV
