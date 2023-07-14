@@ -64,7 +64,7 @@ bc.bacias().add_to(br)
 ba.bathmetry().add_to(br)
 
 # Dados não-sísmicos
-#ns.nsismico().add_to(br)
+ns.nsismico().add_to(br)
 
 # Santos Outer-high and square selection
 #bl.outerhigh().add_to(br)
