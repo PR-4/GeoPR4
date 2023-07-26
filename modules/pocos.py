@@ -214,7 +214,7 @@ class PR4:
 
     def pocosUFF():
         # Importando dados
-        pocosNaUFF = pd.read_excel('../inputs/pocos/pocos_recebidos_e_selecao.xlsx',
+        pocosNaUFF = pd.read_excel('../inputs/pocos/presal_uff.xlsx',
                                       sheet_name='POCO_UFF',
                                       header=0,
                                       decimal=',',
