@@ -11,9 +11,11 @@ class PR4:
                          header=0,
                          decimal=',',
                          engine='openpyxl',
-                         usecols=['POCO', 'BACIA', 'TIPO', 'PROFUNDIDADE_SONDADOR_M',
-                                  'LATITUDE_BASE_DD', 'LONGITUDE_BASE_DD', 'AGP',
-                                  'PC', 'SISMICA', 'GEOQUIMICA', 'ATINGIU_PRESAL']
+                         usecols=['POCO', 'BACIA', 'BLOCO','CAMPO', 
+                                  'TIPO', 'PROFUNDIDADE_SONDADOR_M',
+                                  'LATITUDE_BASE_DD', 'LONGITUDE_BASE_DD', 
+                                  'AGP','PC', 'SISMICA', 'GEOQUIMICA', 
+                                  'ATINGIU_PRESAL']
                          )
         recebido = gpd.GeoDataFrame(recebido, 
                                     geometry = gpd.points_from_xy(recebido.LATITUDE_BASE_DD, 
@@ -31,6 +33,10 @@ class PR4:
             popup_content += f"<b>Bacia:</b> {row['BACIA']}<br>"
             popup_content += f"<b>Tipo do poço:</b> {row['TIPO']}<br>"
             popup_content += f"<b>Profundidade:</b> {row['PROFUNDIDADE_SONDADOR_M']}<br>"
+            if pd.notnull(row['CAMPO']):
+                popup_content += f"<b>Campo:</b> {row['CAMPO']}<br>"
+            elif pd.notnull(row['BLOCO']):
+                popup_content += f"<b>Bloco:</b> {row['BLOCO']}<br>"
             popup_content += f"<h5><b>DADOS ACESSÓRIOS</b></h5>"
             if pd.notnull(row['AGP']):
                 popup_content += f"<b>AGP:</b> {'Sim' if row['AGP'] == 'Existe' else 'Não'}<br>"
@@ -79,7 +85,7 @@ class PR4:
                                          header=0,
                                          decimal=',',
                                          engine='openpyxl',
-                                         usecols=['POCO', 'BACIA', 
+                                         usecols=['POCO', 'BACIA', 'BLOCO','CAMPO', 
                                                   'TIPO', 'PROFUNDIDADE_SONDADOR_M',
                                                   'LATITUDE_BASE_DD', 'LONGITUDE_BASE_DD',
                                                   'AGP', 'PC', 'SISMICA', 'GEOQUIMICA', 
@@ -101,6 +107,10 @@ class PR4:
             popup_content += f"<b>Bacia:</b> {row['BACIA']}<br>"
             popup_content += f"<b>Tipo do poço:</b> {row['TIPO']}<br>"
             popup_content += f"<b>Profundidade:</b> {row['PROFUNDIDADE_SONDADOR_M']}<br>"
+            if pd.notnull(row['CAMPO']):
+                popup_content += f"<b>Campo:</b> {row['CAMPO']}<br>"
+            elif pd.notnull(row['BLOCO']):
+                popup_content += f"<b>Bloco:</b> {row['BLOCO']}<br>"
             popup_content += f"<h5><b>DADOS ACESSÓRIOS</b></h5>"
             if pd.notnull(row['AGP']):
                 popup_content += f"<b>AGP:</b> {'Sim' if row['AGP'] == 'Existe' else 'Não'}<br>"
@@ -149,7 +159,7 @@ class PR4:
                                           header=0,
                                           decimal=',',
                                           engine='openpyxl',
-                                          usecols=['POCO', 'BACIA', 
+                                          usecols=['POCO', 'BACIA', 'BLOCO','CAMPO', 
                                                    'TIPO', 'PROFUNDIDADE_SONDADOR_M',
                                                    'LATITUDE_BASE_DD', 'LONGITUDE_BASE_DD',
                                                    'AGP', 'PC', 'SISMICA', 'GEOQUIMICA', 
@@ -171,6 +181,10 @@ class PR4:
             popup_content += f"<b>Bacia:</b> {row['BACIA']}<br>"
             popup_content += f"<b>Tipo do poço:</b> {row['TIPO']}<br>"
             popup_content += f"<b>Profundidade:</b> {row['PROFUNDIDADE_SONDADOR_M']}<br>"
+            if pd.notnull(row['CAMPO']):
+                popup_content += f"<b>Campo:</b> {row['CAMPO']}<br>"
+            elif pd.notnull(row['BLOCO']):
+                popup_content += f"<b>Bloco:</b> {row['BLOCO']}<br>"
             popup_content += f"<h5><b>DADOS ACESSÓRIOS</b></h5>"
             if pd.notnull(row['AGP']):
                 popup_content += f"<b>AGP:</b> {'Sim' if row['AGP'] == 'Existe' else 'Não'}<br>"
@@ -219,7 +233,7 @@ class PR4:
                                       header=0,
                                       decimal=',',
                                       engine='openpyxl',
-                                      usecols=['POCO', 'BACIA', 
+                                      usecols=['POCO', 'BACIA', 'BLOCO','CAMPO',  
                                                'TIPO', 'PROFUNDIDADE_SONDADOR_M',
                                                'LATITUDE_BASE_DD', 'LONGITUDE_BASE_DD',
                                                'AGP', 'PC', 'SISMICA', 'GEOQUIMICA', 
@@ -241,6 +255,10 @@ class PR4:
             popup_content += f"<b>Bacia:</b> {row['BACIA']}<br>"
             popup_content += f"<b>Tipo do poço:</b> {row['TIPO']}<br>"
             popup_content += f"<b>Profundidade:</b> {row['PROFUNDIDADE_SONDADOR_M']}<br>"
+            if pd.notnull(row['CAMPO']):
+                popup_content += f"<b>Campo:</b> {row['CAMPO']}<br>"
+            elif pd.notnull(row['BLOCO']):
+                popup_content += f"<b>Bloco:</b> {row['BLOCO']}<br>"
             popup_content += f"<h5><b>DADOS ACESSÓRIOS</b></h5>"
             if pd.notnull(row['AGP']):
                 popup_content += f"<b>AGP:</b> {'Sim' if row['AGP'] == 'Existe' else 'Não'}<br>"
