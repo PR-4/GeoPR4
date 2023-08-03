@@ -23,8 +23,8 @@ import campos
 from campos import publico as cp
 import bacias
 from bacias import publico as bc
-#import nsismicos
-#from nsismicos import publico as ns
+import nsismicos 
+from nsismicos import publico as ns
 import debug as d
 import pocos
 from pocos import PR4 as pr
@@ -64,7 +64,7 @@ bc.bacias().add_to(br)
 ba.bathmetry().add_to(br)
 
 # Dados não-sísmicos
-#ns.nsismico().add_to(br)
+ns.mag297().add_to(br)
 
 # Santos Outer-high and square selection
 #bl.outerhigh().add_to(br)
