@@ -6,7 +6,7 @@ import folium
 class PR4:
     def pocosRecebidos():
         # Importando dados
-        recebido = pd.read_excel('../inputs/pocos/pocos_recebidos_e_selecao.xlsx',
+        recebido = pd.read_excel('../inputs/pocos/pocos_recebidos_updated.xlsx',
                          sheet_name='RECEBIDOS',
                          header=0,
                          decimal=',',
