@@ -9,7 +9,7 @@ import folium
 from folium.raster_layers import WmsTileLayer
 from folium.raster_layers import TileLayer
 
-'''
+"""
             "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" // World Topographic Map
             "http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" // World Street Map
             "http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer" // Light Gray Canvas
@@ -17,40 +17,48 @@ from folium.raster_layers import TileLayer
             "http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer" // Ocean Basemap
             "http://services.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer" // Terrain with Labels
             "http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" // World Imagery
-'''
+"""
 
 
 class esri:
-     def satelite():
-          url = ('http://services.arcgisonline.com/arcgis/rest/services/World_Imagery' + '/MapServer/tile/{z}/{y}/{x}')
+    def satelite():
+        url = (
+            "http://services.arcgisonline.com/arcgis/rest/services/World_Imagery"
+            + "/MapServer/tile/{z}/{y}/{x}"
+        )
 
-          satelite = WmsTileLayer(url=url,
-                            layers=None,
-                            name='ESRI Imagery',
-                            attr='ESRI World Imagery',
-                            )
-          return satelite
+        satelite = WmsTileLayer(
+            url=url,
+            layers=None,
+            name="ESRI Imagery",
+            attr="ESRI World Imagery",
+        )
+        return satelite
 
+    def topo():
+        World_Topo_Map = (
+            "http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map"
+            + "/MapServer/tile/{z}/{y}/{x}"
+        )
 
-     def topo():
-         World_Topo_Map = ('http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map' + '/MapServer/tile/{z}/{y}/{x}')
-        
-         topography = WmsTileLayer(url=World_Topo_Map,
-                              layers=None,
-                              name='ESRI Topo Map',
-                              attr='ESRI Topo Map',
-                              )
-         return topography
-     
-     def oceanBase():
-         OceanBaseMap = ('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}')
-        
-         topography = WmsTileLayer(url=OceanBaseMap,
-                              layers=None,
-                              name='Ocean Basemap',
-                              attr='Tiles (C) Esri -- Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri',
-                              )
-         return topography
+        topography = WmsTileLayer(
+            url=World_Topo_Map,
+            layers=None,
+            name="ESRI Topo Map",
+            attr="ESRI Topo Map",
+        )
+        return topography
+
+    def oceanBase():
+        OceanBaseMap = "https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}"
+
+        oceanbase = WmsTileLayer(
+            url=OceanBaseMap,
+            layers=None,
+            name="Ocean Basemap",
+            attr="Tiles (C) Esri -- Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri",
+        )
+        return oceanbase
 
 
 # Adiciona imagens de bandas de satélites
